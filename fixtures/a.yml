@@ -1,0 +1,9 @@
+- id: "1"
+  fruit: apple
+  vegetable: carrot
+- id: "2"
+  fruit: orange
+  vegetable: corn
+- id: "3"
+  fruit: banana
+  vegetable: potato

@@ -1,0 +1,51 @@
+{
+  "name": "parser-yaml",
+  "description": "parser-cache compatible YAML parser, using js-yaml.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jonschlinkert/parser-yaml",
+  "author": {
+    "name": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jonschlinkert/parser-yaml.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/parser-yaml/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jonschlinkert/parser-yaml/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "dependencies": {
+    "extend-shallow": "^0.1.1",
+    "js-yaml": "^3.2.3"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "keywords": [
+    "cache",
+    "conversion",
+    "convert",
+    "converter",
+    "json",
+    "parse",
+    "parser",
+    "parser-cache",
+    "render",
+    "yaml",
+    "yml"
+  ]
+}
