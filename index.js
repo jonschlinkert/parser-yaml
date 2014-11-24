@@ -38,7 +38,7 @@ parser.parse = function(str, options, cb) {
 
   var opts = extend({}, options);
   try {
-    cb(null, yaml.safeLoad(str, opts));
+    cb(null, yaml.safeLoad(stripBOM(str), opts));
   } catch (err) {
     cb(err);
     return;
@@ -57,7 +57,7 @@ parser.parseSync = function(str, options) {
   var yaml = requires.yaml || (requires.yaml = require('js-yaml'));
   var opts = extend({}, options);
   try {
-    return yaml.safeLoad(str, opts);
+    return yaml.safeLoad(stripBOM(str), opts);
   } catch (err) {
     return err;
   }
@@ -77,13 +77,21 @@ parser.parseSync = function(str, options) {
  * @api public
  */
 
-parser.parseFile = function(filepath, options, cb) {
+parser.parseFile = function(fp, options, cb) {
   if (typeof options === 'function') {
     cb = options;
     options = {};
   }
 
-  parser.parse(fs.readFileSync(filepath, 'utf8'), options, cb);
+  var opts = extend({}, options);
+  try {
+    fs.readFile(fp, 'utf8', function(err, str) {
+      parser.parse(str, opts, cb);
+    });
+  } catch (err) {
+    cb(err);
+    return;
+  }
 };
 
 /**
@@ -100,8 +108,23 @@ parser.parseFile = function(filepath, options, cb) {
 
 parser.parseFileSync = function(filepath, options) {
   try {
-    return parser.parseSync(fs.readFileSync(filepath, 'utf8'), options);
+    var str = fs.readFileSync(filepath, 'utf8');
+    return parser.parseSync(str, options);
   } catch (err) {
     return err;
   }
 };
+
+/**
+ * Strip byte-order marks
+ *
+ * @api private
+ */
+
+function stripBOM(str) {
+  if (str[0] === '\uFEFF') {
+    return str.substring(1);
+  } else {
+    return str;
+  }
+}
